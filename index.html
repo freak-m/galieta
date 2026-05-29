@@ -3,882 +3,667 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Galieta — Locação de Equipamentos & Coberturas Metálicas</title>
+  <title>Galieta — Locação de Equipamentos Industriais</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --orange:   #C8960C;
-      --orange-l: #D4AA30;
-      --yellow:   #F5C800;
-      --blue:     #F5C800;
-      --blue-l:   #FDE77A;
-      --green:    #C8960C;
-      --green-l:  #D4B840;
-      --purple:   #D0D0D0;
-      --purple-l: #DCDCDC;
-      --bg:       #EBEBEB;
-      --text:     #1A1A1A;
-      --white:    #F8F8F8;
-      --radius:   28px;
-      --shadow-orange: 0 12px 40px rgba(200,150,12,.35), inset 0 2px 6px rgba(255,255,255,.7);
-      --shadow-blue:   0 12px 40px rgba(245,200,0,.3),   inset 0 2px 6px rgba(255,255,255,.7);
-      --shadow-green:  0 12px 40px rgba(200,150,12,.3),  inset 0 2px 6px rgba(255,255,255,.7);
-      --shadow-purple: 0 12px 40px rgba(0,0,0,.08),      inset 0 2px 6px rgba(255,255,255,.7);
-      --shadow-card:   0 20px 60px rgba(0,0,0,.10),      inset 0 2px 8px rgba(255,255,255,.8);
+      --bg:      #E8E8E8;
+      --bg2:     #F0F0F0;
+      --card:    #F8F8F8;
+      --white:   #FFFFFF;
+      --yellow:  #F5C800;
+      --mustard: #C8960C;
+      --mustard2:#A07A00;
+      --dark:    #1A1A1A;
+      --text:    #2A2A2A;
+      --muted:   #777777;
+      --border:  rgba(0,0,0,.08);
+      --r:       22px;
+      --r-sm:    14px;
+      --shadow:  0 12px 40px rgba(0,0,0,.10), inset 0 2px 6px rgba(255,255,255,.8);
+      --shadow-y:0 12px 36px rgba(200,150,12,.3), inset 0 2px 6px rgba(255,255,255,.4);
     }
 
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-      width: calc(100% - 48px); max-width: 1100px;
-      background: rgba(235,235,235,.82);
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(232,232,232,.88);
       backdrop-filter: blur(18px);
-      border-radius: 999px;
-      padding: 14px 32px;
+      border-bottom: 1px solid rgba(255,255,255,.7);
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      padding: 0 48px; height: 70px;
       display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 8px 32px rgba(0,0,0,.12), inset 0 2px 6px rgba(255,255,255,.8);
-      z-index: 999;
     }
 
-    .nav-logo {
-      font-size: 1.5rem; font-weight: 900; color: var(--orange);
-      text-shadow: 3px 3px 0 rgba(255,122,61,.2);
+    .nav-brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-brand-name {
+      font-size: 1.4rem; font-weight: 900; color: var(--dark);
       letter-spacing: -0.5px;
     }
+    .nav-brand-name em { font-style: normal; color: var(--mustard); }
+    .nav-brand-sub { font-size: .62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
     .nav-links a {
-      text-decoration: none; color: var(--text);
-      font-weight: 700; font-size: .95rem;
-      transition: color .2s;
+      font-size: .82rem; font-weight: 800; letter-spacing: .5px;
+      text-decoration: none; color: #666;
+      padding: 8px 18px; border-radius: 999px;
+      transition: background .2s, color .2s;
     }
-    .nav-links a:hover { color: var(--orange); }
+    .nav-links a:hover, .nav-links a.active {
+      background: var(--white); color: var(--dark);
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
 
-    .nav-cta {
-      background: var(--orange);
-      color: #fff; font-weight: 800; font-size: .9rem;
-      padding: 10px 24px; border-radius: 999px; border: none; cursor: pointer;
-      box-shadow: var(--shadow-orange);
-      transition: transform .2s, box-shadow .2s;
+    .nav-phone {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--mustard);
+      border-radius: 999px; padding: 10px 20px;
+      box-shadow: var(--shadow-y);
     }
-    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(255,122,61,.45); }
+    .nav-phone-icon { font-size: 1rem; }
+    .nav-phone span { font-size: .85rem; font-weight: 800; color: #fff; }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 70px; background: var(--bg2);
     }
 
-    /* decorative blobs */
-    .blob {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: .45; pointer-events: none;
-    }
-    .blob-1 { width: 520px; height: 520px; background: var(--orange-l); top: -120px; right: -100px; }
-    .blob-2 { width: 380px; height: 380px; background: var(--blue-l);   bottom: -80px;  left: -80px; }
-    .blob-3 { width: 260px; height: 260px; background: var(--yellow);   top: 60%;  right: 20%; }
-
-    .hero-inner {
-      max-width: 1100px; width: 100%;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
-      position: relative;
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 56px 80px 72px;
     }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--white);
-      padding: 8px 18px; border-radius: 999px;
-      font-size: .85rem; font-weight: 800; color: var(--orange);
-      box-shadow: 0 4px 16px rgba(255,122,61,.2), inset 0 2px 4px rgba(255,255,255,.9);
-      margin-bottom: 20px;
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--white); border-radius: 999px;
+      padding: 7px 16px; margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      align-self: flex-start;
     }
-    .hero-badge span { font-size: 1rem; }
+    .hero-eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mustard); flex-shrink: 0; }
+    .hero-eyebrow span { font-size: .72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mustard); }
 
-    .hero-title {
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      font-weight: 900; line-height: 1.15;
-      color: var(--text);
+    h1.hero-title {
+      font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+      font-weight: 900; line-height: 1.05;
+      text-transform: uppercase; letter-spacing: -.5px; color: var(--dark);
     }
-    .hero-title em {
-      font-style: normal; color: var(--orange);
-      text-shadow: 4px 4px 0 rgba(255,122,61,.15);
-    }
+    h1.hero-title em { font-style: normal; color: var(--yellow); }
 
-    .hero-sub {
-      margin-top: 18px;
-      font-size: 1.1rem; font-weight: 600; color: #666;
-      line-height: 1.6;
-    }
+    .hero-sub { margin-top: 22px; font-size: .98rem; color: var(--muted); line-height: 1.75; max-width: 400px; font-weight: 600; }
 
-    .hero-actions {
-      margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;
-    }
+    .hero-actions { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
 
-    .btn-primary {
-      background: var(--orange); color: #fff;
-      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
-      padding: 16px 36px; border-radius: 999px; border: none; cursor: pointer;
-      box-shadow: var(--shadow-orange);
+    .btn-mustard {
+      font-family: 'Nunito', sans-serif; font-size: .9rem; font-weight: 800;
+      letter-spacing: .5px; text-transform: uppercase; color: #fff;
+      padding: 14px 30px; border-radius: 999px; border: none; cursor: pointer;
+      background: var(--mustard);
+      box-shadow: var(--shadow-y);
+      display: flex; align-items: center; gap: 10px;
       transition: transform .2s, box-shadow .2s;
     }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 56px rgba(255,122,61,.5); }
+    .btn-mustard:hover { transform: translateY(-3px); box-shadow: 0 18px 44px rgba(200,150,12,.45); }
 
-    .btn-secondary {
-      background: var(--white); color: var(--text);
-      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
-      padding: 16px 36px; border-radius: 999px; border: none; cursor: pointer;
-      box-shadow: var(--shadow-card);
+    .btn-ghost {
+      font-family: 'Nunito', sans-serif; font-size: .9rem; font-weight: 800;
+      letter-spacing: .5px; text-transform: uppercase; color: var(--dark);
+      padding: 13px 30px; border-radius: 999px; cursor: pointer;
+      background: var(--white); border: none;
+      box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 10px;
       transition: transform .2s;
     }
-    .btn-secondary:hover { transform: translateY(-3px); }
+    .btn-ghost:hover { transform: translateY(-3px); }
 
-    /* hero visual */
-    .hero-visual {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(90deg, var(--bg2) 0%, transparent 35%);
+    }
+    .hero-right::after {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(180deg, transparent 60%, var(--bg2) 100%);
     }
 
-    .clay-card {
+    /* ── FEATURES STRIP ── */
+    .features {
       background: var(--white);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow-card);
-      transition: transform .3s;
+      box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
     }
-    .clay-card:hover { transform: translateY(-6px) rotate(-1deg); }
-
-    .clay-card.span-2 { grid-column: span 2; }
-    .clay-card.orange { background: var(--orange); color: #fff; box-shadow: var(--shadow-orange); }
-    .clay-card.blue   { background: var(--blue);   color: #fff; box-shadow: var(--shadow-blue); }
-    .clay-card.green  { background: var(--green);  color: #fff; box-shadow: var(--shadow-green); }
-    .clay-card.yellow { background: var(--yellow); }
-
-    .card-icon { font-size: 2.5rem; margin-bottom: 10px; }
-    .card-title { font-size: 1rem; font-weight: 800; }
-    .card-val   { font-size: 2rem; font-weight: 900; line-height: 1; margin-top: 4px; }
-    .card-sub   { font-size: .8rem; font-weight: 600; opacity: .8; margin-top: 4px; }
-
-    /* ── SECTION HEADERS ── */
-    .section { padding: 100px 24px; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-label {
-      display: inline-block;
-      background: var(--white);
-      padding: 6px 18px; border-radius: 999px;
-      font-size: .8rem; font-weight: 800; color: var(--orange);
-      box-shadow: 0 4px 16px rgba(255,122,61,.15);
-      margin-bottom: 14px;
-      text-transform: uppercase; letter-spacing: 1px;
+    .features-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
-
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 900; line-height: 1.2;
+    .feat {
+      display: flex; align-items: center; gap: 16px;
+      padding: 28px 28px;
+      border-right: 1px solid var(--border);
     }
-    .section-title em { font-style: normal; color: var(--orange); }
+    .feat:last-child { border-right: none; }
 
-    .section-sub {
-      margin-top: 12px; font-size: 1.05rem;
-      font-weight: 600; color: #777; max-width: 560px;
+    .feat-icon {
+      width: 52px; height: 52px; border-radius: var(--r-sm); flex-shrink: 0;
+      background: var(--bg); display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08), inset 0 2px 4px rgba(255,255,255,.9);
     }
+    .feat-text h4 { font-size: .82rem; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; color: var(--dark); margin-bottom: 4px; }
+    .feat-text p  { font-size: .78rem; font-weight: 600; color: var(--muted); line-height: 1.5; }
+
+    /* ── SECTION ── */
+    .section { padding: 96px 48px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: .7rem; font-weight: 900; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--mustard); margin-bottom: 14px;
+    }
+    .sec-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem); font-weight: 900;
+      text-transform: uppercase; letter-spacing: -.3px; color: var(--dark); line-height: 1.1;
+    }
+    .sec-sub { margin-top: 14px; font-size: .92rem; font-weight: 600; color: var(--muted); line-height: 1.75; max-width: 480px; }
+
+    /* ── EQUIPMENT ── */
+    .equip-section { background: var(--bg); }
+    .equip-layout { display: grid; grid-template-columns: 260px 1fr; gap: 64px; align-items: start; }
+    .equip-sidebar .sec-sub { max-width: 240px; }
+
+    .btn-sm {
+      margin-top: 28px; font-family: 'Nunito', sans-serif;
+      font-size: .78rem; font-weight: 800; letter-spacing: .5px; text-transform: uppercase;
+      color: var(--dark); padding: 10px 20px; border-radius: var(--r-sm); cursor: pointer;
+      background: var(--white); border: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08), inset 0 2px 4px rgba(255,255,255,.9);
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: transform .2s;
+    }
+    .btn-sm:hover { transform: translateY(-2px); }
+
+    .equip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .eq-card {
+      background: var(--card);
+      border-radius: var(--r); overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .eq-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 20px 56px rgba(0,0,0,.14); }
+
+    .eq-thumb { height: 150px; overflow: hidden; position: relative; background: var(--bg); }
+    .eq-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .eq-card:hover .eq-thumb img { transform: scale(1.06); }
+    .eq-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+
+    .eq-body { padding: 18px 20px; }
+    .eq-name { font-size: .88rem; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; color: var(--dark); margin-bottom: 12px; }
+    .eq-bottom { display: flex; align-items: center; justify-content: space-between; }
+    .eq-price-lbl { font-size: .7rem; font-weight: 700; color: var(--muted); }
+    .eq-price { font-size: 1.1rem; font-weight: 900; color: var(--mustard); }
+    .eq-price span { font-size: .72rem; font-weight: 600; color: var(--muted); }
+    .eq-btn {
+      width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+      background: var(--mustard); color: #fff; font-size: .9rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(200,150,12,.35);
+      transition: transform .2s;
+    }
+    .eq-btn:hover { transform: scale(1.1); }
+
+    /* ── ABOUT ── */
+    .about-section { background: var(--bg2); }
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+    .about-visual {
+      border-radius: var(--r); overflow: hidden; position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,.14);
+    }
+    .about-img { width: 100%; height: 460px; object-fit: cover; display: block; }
+
+    .about-play {
+      position: absolute; bottom: 24px; left: 24px;
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(255,255,255,.88); backdrop-filter: blur(10px);
+      border-radius: 999px; padding: 12px 20px; cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      transition: background .2s;
+    }
+    .about-play:hover { background: rgba(255,255,255,.98); }
+    .play-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--mustard); display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; color: #fff; flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(200,150,12,.4);
+    }
+    .play-label strong { font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; color: var(--dark); display: block; }
+    .play-label span   { font-size: .7rem; font-weight: 600; color: var(--muted); }
+
+    .about-stats { margin-top: 40px; display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .stat-box {
+      background: var(--white); border-radius: var(--r); padding: 24px 16px; text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform .25s;
+    }
+    .stat-box:hover { transform: translateY(-4px); }
+    .stat-box-ico  { font-size: 1.3rem; margin-bottom: 8px; }
+    .stat-box-num  { font-size: 1.9rem; font-weight: 900; color: var(--mustard); line-height: 1; }
+    .stat-box-lbl  { font-size: .68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
 
     /* ── SERVICES ── */
-    .services-bg { background: linear-gradient(160deg, #fff9f5 0%, var(--bg) 100%); }
+    .services-section { background: var(--bg); }
+    .services-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 
-    .services-grid {
-      margin-top: 56px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
-    }
-
-    .service-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      box-shadow: var(--shadow-card);
-      transition: transform .3s;
+    .svc-card {
+      background: var(--card); border-radius: var(--r); padding: 32px 26px;
+      box-shadow: var(--shadow);
+      transition: transform .25s;
       position: relative; overflow: hidden;
     }
-    .service-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 6px;
-      border-radius: var(--radius) var(--radius) 0 0;
-    }
-    .service-card.c-orange::before { background: var(--orange); }
-    .service-card.c-blue::before   { background: var(--blue); }
-    .service-card.c-green::before  { background: var(--green); }
-    .service-card.c-purple::before { background: var(--purple); }
-    .service-card.c-yellow::before { background: var(--yellow); }
-    .service-card.c-orange2::before{ background: linear-gradient(90deg, var(--orange), var(--yellow)); }
-
-    .service-card:hover { transform: translateY(-8px) scale(1.01); }
-
-    .service-icon-wrap {
-      width: 68px; height: 68px; border-radius: 20px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; margin-bottom: 20px;
-    }
-    .c-orange .service-icon-wrap { background: rgba(255,122,61,.12); }
-    .c-blue   .service-icon-wrap { background: rgba(61,139,255,.12); }
-    .c-green  .service-icon-wrap { background: rgba(6,214,160,.12); }
-    .c-purple .service-icon-wrap { background: rgba(155,93,229,.12); }
-    .c-yellow .service-icon-wrap { background: rgba(255,209,102,.2); }
-    .c-orange2 .service-icon-wrap{ background: rgba(255,122,61,.12); }
-
-    .service-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
-    .service-desc { font-size: .95rem; font-weight: 600; color: #777; line-height: 1.6; }
-
-    /* ── STATS ── */
-    .stats-section { background: var(--orange); padding: 80px 24px; position: relative; overflow: hidden; }
-    .stats-section::before {
-      content: '';
-      position: absolute; top: -80px; left: -80px;
-      width: 300px; height: 300px;
-      background: rgba(255,255,255,.1); border-radius: 50%;
-    }
-    .stats-section::after {
-      content: '';
-      position: absolute; bottom: -60px; right: -60px;
-      width: 240px; height: 240px;
-      background: rgba(255,255,255,.08); border-radius: 50%;
-    }
-
-    .stats-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px;
-      position: relative; z-index: 1;
-    }
-
-    .stat-item { text-align: center; }
-    .stat-num {
-      font-size: 3.5rem; font-weight: 900; color: var(--white);
-      line-height: 1; text-shadow: 0 4px 16px rgba(0,0,0,.15);
-    }
-    .stat-label { font-size: 1rem; font-weight: 700; color: rgba(255,255,255,.85); margin-top: 8px; }
-
-    /* ── WHY US ── */
-    .why-grid {
-      margin-top: 56px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-    }
-
-    .why-item {
-      background: var(--white);
-      border-radius: var(--radius); padding: 32px;
-      box-shadow: var(--shadow-card);
-      display: flex; gap: 20px; align-items: flex-start;
+    .svc-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--yellow); transform: scaleX(0); transform-origin: left;
       transition: transform .3s;
     }
-    .why-item:hover { transform: translateY(-5px); }
+    .svc-card:hover { transform: translateY(-6px); }
+    .svc-card:hover::before { transform: scaleX(1); }
 
-    .why-icon {
-      width: 56px; height: 56px; border-radius: 16px;
-      background: linear-gradient(135deg, var(--orange), var(--orange-l));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; flex-shrink: 0;
-      box-shadow: 0 8px 24px rgba(255,122,61,.3), inset 0 2px 4px rgba(255,255,255,.4);
+    .svc-icon {
+      width: 54px; height: 54px; border-radius: var(--r-sm);
+      background: var(--bg); display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08), inset 0 2px 4px rgba(255,255,255,.9);
     }
-
-    .why-text h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
-    .why-text p  { font-size: .9rem; font-weight: 600; color: #777; line-height: 1.6; }
-
-    /* ── PRODUCTS ── */
-    .products-bg { background: linear-gradient(160deg, #f0f7ff 0%, var(--bg) 100%); }
-
-    .products-grid {
-      margin-top: 56px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
-    }
-
-    .product-card {
-      background: var(--white);
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow-card);
-      transition: transform .3s;
-    }
-    .product-card:hover { transform: translateY(-8px); }
-
-    .product-thumb {
-      height: 160px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem;
-    }
-    .t-orange  { background: linear-gradient(135deg, var(--orange-l), var(--yellow)); }
-    .t-blue    { background: linear-gradient(135deg, var(--blue-l), #c9e0ff); }
-    .t-green   { background: linear-gradient(135deg, var(--green-l), #c2f5e6); }
-    .t-purple  { background: linear-gradient(135deg, var(--purple-l), #ede0ff); }
-
-    .product-body { padding: 24px; }
-    .product-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
-    .product-desc { font-size: .9rem; font-weight: 600; color: #777; line-height: 1.5; }
-    .product-tag {
-      display: inline-block; margin-top: 14px;
-      background: var(--bg); border-radius: 999px;
-      padding: 5px 14px; font-size: .8rem; font-weight: 800; color: var(--orange);
-    }
+    .svc-name { font-size: .9rem; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; color: var(--dark); margin-bottom: 10px; }
+    .svc-desc { font-size: .85rem; font-weight: 600; color: var(--muted); line-height: 1.7; }
 
     /* ── TESTIMONIALS ── */
-    .testimonials-grid {
-      margin-top: 56px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
-    }
+    .testi-section { background: var(--bg2); }
+    .testi-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 
-    .testimonial-card {
-      background: var(--white);
-      border-radius: var(--radius); padding: 32px;
-      box-shadow: var(--shadow-card);
-      transition: transform .3s;
+    .testi-card {
+      background: var(--card); border-radius: var(--r); padding: 30px;
+      box-shadow: var(--shadow);
+      transition: transform .25s;
     }
-    .testimonial-card:hover { transform: translateY(-5px) rotate(0.5deg); }
-
-    .stars { font-size: 1.2rem; margin-bottom: 14px; }
-    .testimonial-text {
-      font-size: 1rem; font-weight: 600; color: #555;
-      line-height: 1.7; font-style: italic;
-    }
-    .testimonial-author {
-      margin-top: 20px; display: flex; align-items: center; gap: 14px;
-    }
-    .author-avatar {
-      width: 48px; height: 48px; border-radius: 50%;
+    .testi-card:hover { transform: translateY(-5px) rotate(.5deg); }
+    .testi-stars { color: var(--yellow); font-size: .9rem; letter-spacing: 2px; margin-bottom: 14px; }
+    .testi-text  { font-size: .88rem; font-weight: 600; color: var(--muted); line-height: 1.75; font-style: italic; }
+    .testi-author { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+    .testi-av {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; font-weight: 900; color: #fff;
+      font-size: 1rem; font-weight: 900; color: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,.15);
     }
-    .av-orange { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
-    .av-blue   { background: linear-gradient(135deg, var(--blue), #6fb3ff); }
-    .av-green  { background: linear-gradient(135deg, var(--green), #5ef7d0); }
+    .av1 { background: linear-gradient(135deg, var(--mustard), var(--yellow)); }
+    .av2 { background: linear-gradient(135deg, #A07A00, var(--mustard)); }
+    .av3 { background: linear-gradient(135deg, var(--yellow), #e0b000); }
+    .testi-name { font-size: .88rem; font-weight: 900; color: var(--dark); }
+    .testi-role { font-size: .74rem; font-weight: 600; color: var(--muted); margin-top: 2px; }
 
-    .author-name  { font-weight: 800; font-size: .95rem; }
-    .author-role  { font-size: .82rem; font-weight: 600; color: #999; }
+    /* ── CTA BAR ── */
+    .cta-bar {
+      background: var(--dark); padding: 52px 48px;
+    }
+    .cta-bar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    }
+    .cta-bar h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900;
+      text-transform: uppercase; letter-spacing: -.3px; color: #fff; line-height: 1.2;
+    }
+    .cta-bar p { font-size: .88rem; font-weight: 600; color: #888; margin-top: 6px; }
 
-    /* ── CTA BANNER ── */
-    .cta-section {
-      padding: 100px 24px;
-      background: linear-gradient(135deg, #fff9f5 0%, #f0f7ff 100%);
-    }
-
-    .cta-banner {
-      max-width: 860px; margin: 0 auto;
-      background: var(--white);
-      border-radius: 40px; padding: 64px 56px;
-      box-shadow: 0 32px 80px rgba(0,0,0,.10), inset 0 2px 8px rgba(255,255,255,.9);
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .cta-banner::before {
-      content: '';
-      position: absolute; top: -60px; right: -60px;
-      width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(255,122,61,.15) 0%, transparent 70%);
-    }
-    .cta-banner::after {
-      content: '';
-      position: absolute; bottom: -60px; left: -60px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(61,139,255,.12) 0%, transparent 70%);
-    }
-
-    .cta-banner h2 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900;
-      position: relative; z-index: 1;
-    }
-    .cta-banner p {
-      margin-top: 14px; font-size: 1.1rem; font-weight: 600; color: #777;
-      position: relative; z-index: 1;
-    }
-    .cta-actions {
-      margin-top: 36px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
-      position: relative; z-index: 1;
-    }
-
-    .btn-whatsapp {
-      background: #25D366; color: #fff;
-      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+    .btn-wa {
+      font-family: 'Nunito', sans-serif; font-size: .88rem; font-weight: 800;
+      letter-spacing: .5px; text-transform: uppercase; color: #fff;
       padding: 16px 36px; border-radius: 999px; border: none; cursor: pointer;
-      box-shadow: 0 12px 36px rgba(37,211,102,.35), inset 0 2px 6px rgba(255,255,255,.4);
+      background: #25D366;
+      box-shadow: 0 8px 28px rgba(37,211,102,.4);
+      display: flex; align-items: center; gap: 12px; white-space: nowrap;
       transition: transform .2s, box-shadow .2s;
-      display: flex; align-items: center; gap: 10px;
     }
-    .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgba(37,211,102,.5); }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,.55); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--text); color: rgba(255,255,255,.8);
-      padding: 64px 24px 32px;
-    }
+    footer { background: #111; padding: 64px 48px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
 
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
-    }
+    .foot-logo { font-size: 1.4rem; font-weight: 900; color: #fff; letter-spacing: -.3px; }
+    .foot-logo em { font-style: normal; color: var(--yellow); }
+    .foot-sub { font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; color: #555; font-weight: 700; margin-top: 2px; }
+    .foot-brand p { margin-top: 16px; font-size: .85rem; font-weight: 600; color: #555; line-height: 1.7; }
 
-    .footer-brand .nav-logo { color: var(--orange-l); font-size: 1.8rem; }
-    .footer-brand p { margin-top: 14px; font-size: .9rem; font-weight: 600; line-height: 1.7; color: rgba(255,255,255,.6); }
+    .foot-contact { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .fc { display: flex; align-items: center; gap: 10px; font-size: .82rem; font-weight: 600; color: #555; }
+    .fc-ico { width: 26px; height: 26px; border-radius: 8px; background: #222; display: flex; align-items: center; justify-content: center; font-size: .85rem; flex-shrink: 0; }
 
-    .footer-col h4 { font-size: .9rem; font-weight: 800; color: var(--white); margin-bottom: 16px; text-transform: uppercase; letter-spacing: .5px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col a  { text-decoration: none; font-size: .9rem; font-weight: 600; color: rgba(255,255,255,.6); transition: color .2s; }
-    .footer-col a:hover { color: var(--orange-l); }
+    .foot-col h4 { font-size: .7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid #222; }
+    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .foot-col a { text-decoration: none; font-size: .85rem; font-weight: 600; color: #555; transition: color .2s; }
+    .foot-col a:hover { color: var(--yellow); }
 
-    .footer-bottom {
-      max-width: 1100px; margin: 48px auto 0;
-      padding-top: 28px; border-top: 1px solid rgba(255,255,255,.1);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
-      font-size: .85rem; font-weight: 600; color: rgba(255,255,255,.4);
-    }
-
-    /* ── CONTACT CHIPS ── */
-    .contact-chips { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
-    .chip {
-      display: flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,.07); border-radius: 999px;
-      padding: 10px 18px; font-size: .88rem; font-weight: 700;
-      color: rgba(255,255,255,.75);
-    }
-    .chip span { font-size: 1.1rem; }
+    .foot-bottom { max-width: 1200px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid #222; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: .78rem; font-weight: 600; color: #333; }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .equip-layout { grid-template-columns: 1fr; gap: 40px; }
+      .equip-grid   { grid-template-columns: repeat(2,1fr); }
+      .about-layout { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 768px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-      .hero-visual { display: none; }
-      .why-grid   { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
-      nav .nav-links { display: none; }
+      nav .nav-links, .nav-phone { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 50vw; }
+      .hero-left { padding: 60px 24px; }
+      .features-inner { grid-template-columns: 1fr 1fr; }
+      .services-grid, .testi-grid { grid-template-columns: 1fr; }
+      .section { padding: 64px 24px; }
+      .cta-bar { padding: 40px 24px; }
     }
-
     @media (max-width: 480px) {
+      .features-inner { grid-template-columns: 1fr; }
+      .equip-grid, .about-stats { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; }
-      .cta-banner { padding: 40px 28px; }
     }
-
-    /* ── TEMA CINZA / AMARELO / MOSTARDA ── */
-    body { background: #EBEBEB; color: #1A1A1A; }
-
-    nav { background: rgba(235,235,235,.85); box-shadow: 0 8px 32px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.9); }
-    .nav-logo { color: #1A1A1A; }
-    .nav-links a { color: #555; }
-    .nav-links a:hover { color: var(--yellow); }
-    .nav-cta { background: var(--orange); box-shadow: 0 8px 24px rgba(200,150,12,.35), inset 0 2px 6px rgba(255,255,255,.3); }
-
-    .hero { background: #EBEBEB; }
-    .hero-title em { color: var(--yellow); }
-    .hero-sub { color: #666; }
-    .hero-badge { background: #fff; color: #8A6B00; box-shadow: 0 4px 16px rgba(200,150,12,.15), inset 0 2px 4px rgba(255,255,255,.9); }
-    .blob-1 { background: rgba(245,200,0,.3);  filter: blur(90px); }
-    .blob-2 { background: rgba(200,150,12,.2); filter: blur(90px); }
-    .blob-3 { background: rgba(245,200,0,.15); filter: blur(70px); }
-
-    .section-label { background: #fff; color: #8A6B00; box-shadow: 0 4px 16px rgba(200,150,12,.12); }
-    .section-sub  { color: #666; }
-    .section-title { color: #1A1A1A; }
-    .section-title em { color: var(--yellow); }
-
-    .services-bg { background: linear-gradient(160deg, #F2F2F2 0%, #EBEBEB 100%); }
-    .service-card { background: #F8F8F8; }
-    .service-desc { color: #666; }
-    .c-yellow .service-icon-wrap { background: rgba(245,200,0,.18); }
-    .c-orange2 .service-icon-wrap { background: rgba(200,150,12,.14); }
-
-    .stats-section { background: #1A1A1A; }
-    .stat-num { color: var(--yellow); }
-    .stat-label { color: rgba(255,255,255,.6); }
-
-    .why-item { background: #F8F8F8; }
-    .why-text p { color: #666; }
-    .why-icon { background: linear-gradient(135deg, var(--yellow), var(--orange-l)); box-shadow: 0 8px 24px rgba(200,150,12,.3), inset 0 2px 4px rgba(255,255,255,.4); }
-
-    .products-bg { background: linear-gradient(160deg, #F0F0F0 0%, #EBEBEB 100%); }
-    .product-card { background: #F8F8F8; }
-    .product-name { color: #1A1A1A; }
-    .product-desc { color: #666; }
-    .product-tag  { background: #EBEBEB; color: #8A6B00; }
-    .t-blue   { background: linear-gradient(135deg, rgba(245,200,0,.3), rgba(245,200,0,.12)); }
-    .t-green  { background: linear-gradient(135deg, rgba(200,150,12,.25), rgba(212,168,48,.12)); }
-    .t-purple { background: linear-gradient(135deg, #DCDCDC, #E8E8E8); }
-
-    .testimonial-card { background: #F8F8F8; }
-    .testimonial-text { color: #666; }
-    .author-name { color: #1A1A1A; }
-    .author-role { color: #999; }
-    .av-blue  { background: linear-gradient(135deg, var(--yellow), var(--orange-l)); }
-    .av-green { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
-
-    .cta-section { background: linear-gradient(135deg, #F0F0F0 0%, #EBEBEB 100%); }
-    .cta-banner {
-      background: #F8F8F8;
-      box-shadow: 0 32px 80px rgba(0,0,0,.08), inset 0 2px 8px rgba(255,255,255,.9);
-    }
-    .cta-banner::before { background: radial-gradient(circle, rgba(245,200,0,.15) 0%, transparent 70%); }
-    .cta-banner::after  { background: radial-gradient(circle, rgba(200,150,12,.12) 0%, transparent 70%); }
-    .cta-banner h2 { color: #1A1A1A; }
-    .cta-banner p  { color: #666; }
-
-    footer { background: #1A1A1A; color: rgba(255,255,255,.75); }
-    .footer-brand .nav-logo { color: var(--yellow); }
-    .footer-brand p { color: rgba(255,255,255,.4); }
-    .footer-col h4 { color: var(--yellow); }
-    .footer-col a  { color: rgba(255,255,255,.4); }
-    .footer-col a:hover { color: var(--yellow); }
-    .footer-bottom { color: rgba(255,255,255,.25); border-top-color: rgba(255,255,255,.08); }
-    .chip { background: rgba(255,255,255,.06); color: rgba(255,255,255,.55); }
-
-    .btn-primary   { background: var(--orange); box-shadow: 0 12px 36px rgba(200,150,12,.4), inset 0 2px 6px rgba(255,255,255,.25); }
-    .btn-primary:hover { box-shadow: 0 20px 48px rgba(200,150,12,.5); }
-    .btn-secondary { background: #fff; color: #1A1A1A; box-shadow: 0 8px 24px rgba(0,0,0,.08), inset 0 2px 4px rgba(255,255,255,.9); }
-    .btn-whatsapp  { box-shadow: 0 12px 36px rgba(37,211,102,.3), inset 0 2px 6px rgba(255,255,255,.3); }
-
-    .clay-card.orange { background: var(--orange); box-shadow: var(--shadow-orange); }
-    .clay-card.blue   { background: var(--yellow); color: #1A1A1A; box-shadow: var(--shadow-blue); }
-    .clay-card.green  { background: #D4AA30; color: #fff; box-shadow: var(--shadow-green); }
-    .clay-card.yellow { background: var(--yellow); color: #1A1A1A; }
-    .card-val { color: inherit; }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Galieta</div>
+    <div class="nav-brand">
+      <div class="nav-brand-name">GALI<em>ETA</em></div>
+      <div class="nav-brand-sub">Locação de Equipamentos</div>
+    </div>
     <ul class="nav-links">
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#produtos">Produtos</a></li>
-      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#" class="active">Início</a></li>
+      <li><a href="#equipamentos">Equipamentos</a></li>
+      <li><a href="#sobre">Sobre Nós</a></li>
+      <li><a href="#servicos">Soluções</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
-    <button class="nav-cta" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Solicitar Orçamento</button>
+    <div class="nav-phone">
+      <div class="nav-phone-icon">📞</div>
+      <span>(19) 3800-0000</span>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <div class="hero-inner">
-      <div class="hero-content">
-        <div class="hero-badge"><span>🏗️</span> Sumaré, SP — Há mais de 30 anos</div>
-        <h1 class="hero-title">
-          Locação de<br/>
-          <em>Equipamentos</em><br/>
-          & Coberturas Metálicas
-        </h1>
-        <p class="hero-sub">
-          Soluções completas para construção, indústria e residências.
-          Qualidade, agilidade e preço justo para cada projeto.
-        </p>
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="document.getElementById('servicos').scrollIntoView({behavior:'smooth'})">Ver Serviços</button>
-          <button class="btn-secondary" onclick="document.getElementById('contato').scrollIntoView({behavior:'smooth'})">Fale Conosco</button>
-        </div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Locação de Equipamentos Industriais</span>
       </div>
+      <h1 class="hero-title">
+        FORÇA PARA<br/>
+        <em>CONSTRUIR</em><br/>
+        O FUTURO.
+      </h1>
+      <p class="hero-sub">
+        Locação de máquinas e equipamentos para obras industriais com segurança,
+        agilidade e o melhor custo-benefício em Sumaré e região.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-mustard">
+          📅 Solicitar Orçamento
+        </button>
+        <button class="btn-ghost">
+          🖥 Ver Equipamentos
+        </button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img"
+        src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+        alt="Construção industrial"
+        onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#d8d8d8,#e8e8e8)'"
+      />
+    </div>
+  </section>
 
-      <div class="hero-visual">
-        <div class="clay-card orange">
-          <div class="card-icon">🏗️</div>
-          <div class="card-title">Equipamentos</div>
-          <div class="card-val">500+</div>
-          <div class="card-sub">itens disponíveis</div>
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="features-inner">
+      <div class="feat"><div class="feat-icon">🛡️</div><div class="feat-text"><h4>Segurança</h4><p>Equipamentos revisados e prontos para o uso.</p></div></div>
+      <div class="feat"><div class="feat-icon">⚙️</div><div class="feat-text"><h4>Manutenção</h4><p>Manutenção preventiva e corretiva especializada.</p></div></div>
+      <div class="feat"><div class="feat-icon">⚡</div><div class="feat-text"><h4>Agilidade</h4><p>Entrega rápida para toda a região de Sumaré.</p></div></div>
+      <div class="feat"><div class="feat-icon">🤝</div><div class="feat-text"><h4>Confiança</h4><p>Mais de 30 anos de experiência e clientes satisfeitos.</p></div></div>
+    </div>
+  </div>
+
+  <!-- EQUIPMENT -->
+  <section class="section equip-section" id="equipamentos">
+    <div class="section-inner">
+      <div class="equip-layout">
+        <div class="equip-sidebar">
+          <p class="eyebrow">Nossos Equipamentos</p>
+          <h2 class="sec-title">MÁQUINAS PARA<br/>CADA ETAPA<br/>DA SUA OBRA</h2>
+          <p class="sec-sub">Oferecemos linha completa de equipamentos para construção e manutenção industrial.</p>
+          <button class="btn-sm">⊞ Ver Todos</button>
         </div>
-        <div class="clay-card blue">
-          <div class="card-icon">🏭</div>
-          <div class="card-title">Projetos</div>
-          <div class="card-val">1.2k</div>
-          <div class="card-sub">realizados</div>
-        </div>
-        <div class="clay-card green span-2">
-          <div class="card-icon">⭐</div>
-          <div class="card-title">Satisfação dos Clientes</div>
-          <div class="card-val">98%</div>
-          <div class="card-sub">índice de aprovação</div>
+        <div class="equip-grid">
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&q=80" alt="Betoneira"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">🪣</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Betoneira</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 80,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80" alt="Andaimes"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">🏗️</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Andaimes</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 40,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=400&q=80" alt="Compactador"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">🔨</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Compactador</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 120,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1572981779307-38b8cabb2407?auto=format&fit=crop&w=400&q=80" alt="Furadeira"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">🔧</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Furadeira</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 35,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=400&q=80" alt="Gerador"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">⚡</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Gerador Elétrico</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 150,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-card">
+            <div class="eq-thumb">
+              <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=400&q=80" alt="Esmerilhadeira"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+              <div class="eq-fallback" style="display:none">🔩</div>
+            </div>
+            <div class="eq-body">
+              <div class="eq-name">Esmerilhadeira</div>
+              <div class="eq-bottom">
+                <div><div class="eq-price-lbl">A partir de</div><div class="eq-price">R$ 30,00 <span>/ dia</span></div></div>
+                <button class="eq-btn">→</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-num">30+</div>
-        <div class="stat-label">Anos de experiência</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">500+</div>
-        <div class="stat-label">Equipamentos para locação</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">1.200+</div>
-        <div class="stat-label">Clientes atendidos</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Comprometimento</div>
+  <!-- ABOUT -->
+  <section class="section about-section" id="sobre">
+    <div class="section-inner">
+      <div class="about-layout">
+        <div class="about-visual">
+          <img class="about-img"
+            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=700&q=80"
+            alt="Trabalhador da construção"
+            onerror="this.style.background='#d8d8d8'"
+          />
+          <div class="about-play">
+            <div class="play-btn">▶</div>
+            <div class="play-label">
+              <strong>Assistir Vídeo</strong>
+              <span>Conheça nossa estrutura</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Sobre Nós</p>
+          <h2 class="sec-title">ESPECIALISTAS EM<br/>LOCAÇÃO DE<br/>EQUIPAMENTOS</h2>
+          <p class="sec-sub" style="max-width:100%">
+            Há mais de 30 anos no mercado, a Galieta é referência em locação de equipamentos para
+            obras industriais, construção civil e manutenção em Sumaré, SP. Nosso compromisso é
+            oferecer soluções eficientes com qualidade, segurança e suporte técnico especializado.
+          </p>
+          <div class="about-stats">
+            <div class="stat-box"><div class="stat-box-ico">📅</div><div class="stat-box-num">+30</div><div class="stat-box-lbl">Anos de Mercado</div></div>
+            <div class="stat-box"><div class="stat-box-ico">🔧</div><div class="stat-box-num">+500</div><div class="stat-box-lbl">Equipamentos</div></div>
+            <div class="stat-box"><div class="stat-box-ico">👷</div><div class="stat-box-num">+1000</div><div class="stat-box-lbl">Clientes</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section class="section services-bg" id="servicos">
+  <section class="section services-section" id="servicos">
     <div class="section-inner">
-      <div class="section-label">Nossos Serviços</div>
-      <h2 class="section-title">Tudo que você precisa<br/><em>em um só lugar</em></h2>
-      <p class="section-sub">Atendemos residências, comércios e indústrias com soluções sob medida.</p>
-
+      <p class="eyebrow">Nossas Soluções</p>
+      <h2 class="sec-title">SERVIÇOS COMPLETOS<br/>PARA SUA OBRA</h2>
+      <p class="sec-sub">Do andaime ao gerador, temos tudo para que seu projeto não pare.</p>
       <div class="services-grid">
-        <div class="service-card c-orange">
-          <div class="service-icon-wrap">🏗️</div>
-          <div class="service-name">Locação de Andaimes</div>
-          <div class="service-desc">Andaimes tubulares e fachadeiros para obras de todos os portes, com montagem e desmontagem inclusos.</div>
-        </div>
-        <div class="service-card c-blue">
-          <div class="service-icon-wrap">🔧</div>
-          <div class="service-name">Locação de Ferramentas</div>
-          <div class="service-desc">Amplo portfólio de ferramentas elétricas, manuais e especializadas para construção civil e indústria.</div>
-        </div>
-        <div class="service-card c-green">
-          <div class="service-icon-wrap">🏭</div>
-          <div class="service-name">Coberturas Metálicas</div>
-          <div class="service-desc">Estruturas e coberturas metálicas para galpões industriais, residências e comércio com alta durabilidade.</div>
-        </div>
-        <div class="service-card c-purple">
-          <div class="service-icon-wrap">⚡</div>
-          <div class="service-name">Geradores Elétricos</div>
-          <div class="service-desc">Geradores de energia para eventos, obras e instalações industriais com suporte técnico 24h.</div>
-        </div>
-        <div class="service-card c-yellow">
-          <div class="service-icon-wrap">🚧</div>
-          <div class="service-name">Equipamentos de Segurança</div>
-          <div class="service-desc">EPIs, proteções coletivas, sinalizações e equipamentos para garantir segurança total no trabalho.</div>
-        </div>
-        <div class="service-card c-orange2">
-          <div class="service-icon-wrap">🔩</div>
-          <div class="service-name">Estruturas Metálicas</div>
-          <div class="service-desc">Fabricação e instalação de estruturas metálicas personalizadas para projetos residenciais e comerciais.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY US -->
-  <section class="section" id="sobre">
-    <div class="section-inner">
-      <div class="section-label">Por que a Galieta?</div>
-      <h2 class="section-title">Diferenciais que fazem<br/><em>a diferença</em></h2>
-      <p class="section-sub">Três décadas de dedicação ao cliente e à qualidade nos tornam a melhor escolha.</p>
-
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-icon">⚡</div>
-          <div class="why-text">
-            <h3>Entrega Rápida</h3>
-            <p>Disponibilizamos os equipamentos no prazo combinado. Sua obra não para por falta de material.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">🛡️</div>
-          <div class="why-text">
-            <h3>Equipamentos Certificados</h3>
-            <p>Todo nosso portfólio passa por manutenção rigorosa e está dentro das normas de segurança.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">💰</div>
-          <div class="why-text">
-            <h3>Melhor Custo-Benefício</h3>
-            <p>Preços competitivos com planos flexíveis de locação: diária, semanal ou mensal.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">🤝</div>
-          <div class="why-text">
-            <h3>Atendimento Personalizado</h3>
-            <p>Nossa equipe analisa cada projeto e oferece a solução mais adequada para a sua necessidade.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">📍</div>
-          <div class="why-text">
-            <h3>Empresa Local</h3>
-            <p>Negócio familiar, enraizado em Sumaré há mais de 30 anos. Conhecemos a região e suas necessidades.</p>
-          </div>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">🔄</div>
-          <div class="why-text">
-            <h3>Suporte Contínuo</h3>
-            <p>Estamos disponíveis durante todo o período de locação para resolver qualquer imprevisto.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section class="section products-bg" id="produtos">
-    <div class="section-inner">
-      <div class="section-label">Produtos em Destaque</div>
-      <h2 class="section-title">Portfólio de<br/><em>Equipamentos</em></h2>
-      <p class="section-sub">Conheça alguns dos produtos disponíveis para locação.</p>
-
-      <div class="products-grid">
-        <div class="product-card">
-          <div class="product-thumb t-orange">🏗️</div>
-          <div class="product-body">
-            <div class="product-name">Andaime Tubular</div>
-            <div class="product-desc">Estrutura metálica resistente para trabalhos em altura com segurança máxima.</div>
-            <div class="product-tag">Locação disponível</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-thumb t-blue">⚡</div>
-          <div class="product-body">
-            <div class="product-name">Gerador de Energia</div>
-            <div class="product-desc">Geradores de 5 a 500 kVA para obras, eventos e emergências industriais.</div>
-            <div class="product-tag">Locação disponível</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-thumb t-green">🏭</div>
-          <div class="product-body">
-            <div class="product-name">Cobertura Metálica</div>
-            <div class="product-desc">Telhas e estruturas metálicas para galpões industriais e residências.</div>
-            <div class="product-tag">Venda e instalação</div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-thumb t-purple">🔧</div>
-          <div class="product-body">
-            <div class="product-name">Ferramentas Elétricas</div>
-            <div class="product-desc">Furadeiras, esmerilhadeiras, serras e muito mais das melhores marcas.</div>
-            <div class="product-tag">Locação disponível</div>
-          </div>
-        </div>
+        <div class="svc-card"><div class="svc-icon">🏗️</div><div class="svc-name">Locação de Andaimes</div><div class="svc-desc">Andaimes tubulares e fachadeiros para obras de todos os portes, com montagem e desmontagem inclusos.</div></div>
+        <div class="svc-card"><div class="svc-icon">🔧</div><div class="svc-name">Locação de Ferramentas</div><div class="svc-desc">Amplo portfólio de ferramentas elétricas, manuais e especializadas para construção civil e indústria.</div></div>
+        <div class="svc-card"><div class="svc-icon">🏭</div><div class="svc-name">Coberturas Metálicas</div><div class="svc-desc">Estruturas e coberturas metálicas para galpões industriais, residências e comércio com alta durabilidade.</div></div>
+        <div class="svc-card"><div class="svc-icon">⚡</div><div class="svc-name">Geradores Elétricos</div><div class="svc-desc">Geradores de energia para eventos, obras e instalações industriais com suporte técnico 24h.</div></div>
+        <div class="svc-card"><div class="svc-icon">🚧</div><div class="svc-name">Equipamentos de Segurança</div><div class="svc-desc">EPIs, proteções coletivas, sinalizações e equipamentos para garantir segurança total no trabalho.</div></div>
+        <div class="svc-card"><div class="svc-icon">🔩</div><div class="svc-name">Estruturas Metálicas</div><div class="svc-desc">Fabricação e instalação de estruturas metálicas personalizadas para projetos residenciais e comerciais.</div></div>
       </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="section">
+  <section class="section testi-section">
     <div class="section-inner">
-      <div class="section-label">Depoimentos</div>
-      <h2 class="section-title">O que nossos clientes<br/><em>dizem</em></h2>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">⭐⭐⭐⭐⭐</div>
-          <div class="testimonial-text">"Atendimento excepcional! Alugamos andaimes para uma reforma grande e tudo foi entregue no prazo. Equipe super atenciosa e preço justo."</div>
-          <div class="testimonial-author">
-            <div class="author-avatar av-orange">R</div>
-            <div>
-              <div class="author-name">Roberto Almeida</div>
-              <div class="author-role">Mestre de Obras · Campinas, SP</div>
-            </div>
-          </div>
+      <p class="eyebrow">Depoimentos</p>
+      <h2 class="sec-title">O QUE NOSSOS<br/>CLIENTES DIZEM</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Atendimento excepcional! Andaimes entregues no prazo, equipe atenciosa e preço justo. Recomendo demais."</p>
+          <div class="testi-author"><div class="testi-av av1">R</div><div><div class="testi-name">Roberto Almeida</div><div class="testi-role">Mestre de Obras · Campinas, SP</div></div></div>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">⭐⭐⭐⭐⭐</div>
-          <div class="testimonial-text">"A cobertura metálica do nosso galpão ficou perfeita. Serviço de qualidade, cumpriram o prazo e ainda deram toda a consultoria necessária."</div>
-          <div class="testimonial-author">
-            <div class="author-avatar av-blue">M</div>
-            <div>
-              <div class="author-name">Marcelo Santos</div>
-              <div class="author-role">Gestor Industrial · Sumaré, SP</div>
-            </div>
-          </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"A cobertura metálica do nosso galpão ficou perfeita. Cumpriram o prazo e deram toda a consultoria necessária."</p>
+          <div class="testi-author"><div class="testi-av av2">M</div><div><div class="testi-name">Marcelo Santos</div><div class="testi-role">Gestor Industrial · Sumaré, SP</div></div></div>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">⭐⭐⭐⭐⭐</div>
-          <div class="testimonial-text">"Empresa de confiança! Usamos os serviços deles há anos para nossas obras. Sempre que precisamos de equipamentos, a Galieta não decepciona."</div>
-          <div class="testimonial-author">
-            <div class="author-avatar av-green">A</div>
-            <div>
-              <div class="author-name">Ana Paula Costa</div>
-              <div class="author-role">Engenheira Civil · Hortolândia, SP</div>
-            </div>
-          </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Empresa de confiança há anos. Sempre que precisamos de equipamentos, a Galieta resolve com qualidade."</p>
+          <div class="testi-author"><div class="testi-av av3">A</div><div><div class="testi-name">Ana Paula Costa</div><div class="testi-role">Engenheira Civil · Hortolândia, SP</div></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section" id="contato">
-    <div class="cta-banner">
-      <h2>Pronto para começar<br/>seu projeto? 🚀</h2>
-      <p>Entre em contato e receba um orçamento gratuito e personalizado.<br/>Atendemos toda a região de Sumaré e cidades vizinhas.</p>
-      <div class="cta-actions">
-        <button class="btn-whatsapp">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          WhatsApp
-        </button>
-        <button class="btn-primary" style="font-family:'Nunito',sans-serif;" onclick="window.location.href='tel:+551938000000'">📞 Ligar Agora</button>
-        <button class="btn-secondary" style="font-family:'Nunito',sans-serif;" onclick="window.location.href='mailto:contato@galieta.com.br'">✉️ Enviar E-mail</button>
+  <!-- CTA BAR -->
+  <div class="cta-bar" id="contato">
+    <div class="cta-bar-inner">
+      <div>
+        <h2>PRONTO PARA ALUGAR<br/>O EQUIPAMENTO IDEAL?</h2>
+        <p>Fale com nossa equipe e receba seu orçamento personalizado.</p>
       </div>
+      <button class="btn-wa">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Fale Agora pelo WhatsApp
+      </button>
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="nav-logo">Galieta</div>
-        <p>Empresa familiar com mais de 30 anos no mercado, especializada em locação de equipamentos e coberturas metálicas na região de Sumaré, SP.</p>
-        <div class="contact-chips">
-          <div class="chip"><span>📍</span> R. Padre Joaquim José Vieira, 22 — Sumaré, SP</div>
-          <div class="chip"><span>📞</span> (19) 3800-0000</div>
-          <div class="chip"><span>✉️</span> contato@galieta.com.br</div>
+      <div class="foot-brand">
+        <div class="foot-logo">GALI<em style="font-style:normal;color:var(--yellow)">ETA</em></div>
+        <div class="foot-sub">Locação de Equipamentos</div>
+        <p>Empresa familiar com mais de 30 anos, especializada em locação de equipamentos e coberturas metálicas em Sumaré, SP.</p>
+        <div class="foot-contact">
+          <div class="fc"><div class="fc-ico">📍</div>R. P. Joaquim José Vieira, 22 — Sumaré, SP</div>
+          <div class="fc"><div class="fc-ico">📞</div>(19) 3800-0000</div>
+          <div class="fc"><div class="fc-ico">✉</div>contato@galieta.com.br</div>
         </div>
       </div>
-
-      <div class="footer-col">
-        <h4>Serviços</h4>
-        <ul>
-          <li><a href="#servicos">Locação de Andaimes</a></li>
-          <li><a href="#servicos">Locação de Ferramentas</a></li>
-          <li><a href="#servicos">Coberturas Metálicas</a></li>
-          <li><a href="#servicos">Geradores Elétricos</a></li>
-          <li><a href="#servicos">Estruturas Metálicas</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Empresa</h4>
-        <ul>
-          <li><a href="#sobre">Sobre Nós</a></li>
-          <li><a href="#produtos">Produtos</a></li>
-          <li><a href="#contato">Orçamento</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Atendimento</h4>
-        <ul>
-          <li><a href="#">Seg–Sex: 8h–18h</a></li>
-          <li><a href="#">Sáb: 8h–12h</a></li>
-          <li><a href="#">Suporte 24h</a></li>
-          <li><a href="#">WhatsApp</a></li>
-        </ul>
-      </div>
+      <div class="foot-col"><h4>Serviços</h4><ul><li><a href="#">Locação de Andaimes</a></li><li><a href="#">Ferramentas</a></li><li><a href="#">Coberturas Metálicas</a></li><li><a href="#">Geradores</a></li><li><a href="#">Estruturas Metálicas</a></li></ul></div>
+      <div class="foot-col"><h4>Empresa</h4><ul><li><a href="#sobre">Sobre Nós</a></li><li><a href="#equipamentos">Equipamentos</a></li><li><a href="#contato">Orçamento</a></li><li><a href="#contato">Contato</a></li></ul></div>
+      <div class="foot-col"><h4>Atendimento</h4><ul><li><a href="#">Seg–Sex: 8h–18h</a></li><li><a href="#">Sáb: 8h–12h</a></li><li><a href="#">Suporte Técnico</a></li><li><a href="#">WhatsApp</a></li></ul></div>
     </div>
-
-    <div class="footer-bottom">
-      <span>© 2024 Galieta Locação de Equipamentos. Todos os direitos reservados.</span>
-      <span>Sumaré, SP — CNPJ: 00.000.000/0001-00</span>
+    <div class="foot-bottom">
+      <span>© 2024 Galieta Locação de Equipamentos · Todos os direitos reservados · Sumaré, SP</span>
+      <span>CNPJ: 00.000.000/0001-00</span>
     </div>
   </footer>
 
