@@ -417,9 +417,23 @@
     }
     @media (max-width: 768px) {
       nav .nav-links, .nav-phone { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { height: 50vw; }
-      .hero-left { padding: 60px 24px; }
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        min-height: 100svh;
+      }
+      .hero-left {
+        padding: 28px 16px 28px 20px;
+        justify-content: center;
+      }
+      .hero-left::before, .hero-left::after { display: none; }
+      h1.hero-title { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+      .hero-divider  { margin: 12px 0; }
+      .hero-sub      { font-size: .78rem; max-width: 100%; display: none; }
+      .hero-eyebrow  { margin-bottom: 12px; }
+      .hero-eyebrow span { font-size: .6rem; }
+      .hero-actions  { margin-top: 20px; flex-direction: column; gap: 10px; }
+      .btn-mustard, .btn-plate { font-size: .72rem; padding: 10px 16px; }
+      .hero-right { height: 100%; min-height: 280px; }
       .features-inner { grid-template-columns: 1fr 1fr; }
       .services-grid, .testi-grid { grid-template-columns: 1fr; }
       .section { padding: 64px 24px; }
