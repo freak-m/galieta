@@ -420,10 +420,12 @@
       .hero {
         grid-template-columns: 25% 75%;
         min-height: 100svh;
+        position: relative;
       }
       .hero-left {
         padding: 28px 16px 28px 20px;
         justify-content: center;
+        padding-bottom: 100px;
       }
       .hero-left::after { display: none; }
       .hero-left::before {
@@ -437,7 +439,17 @@
       .hero-sub      { font-size: .78rem; max-width: 100%; display: none; }
       .hero-eyebrow  { margin-bottom: 12px; }
       .hero-eyebrow span { font-size: .6rem; }
-      .hero-actions  { margin-top: 20px; flex-direction: column; gap: 10px; }
+      .hero-actions  {
+        position: absolute;
+        bottom: 28px;
+        left: 20px;
+        right: 20px;
+        z-index: 10;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 0;
+      }
       .btn-mustard, .btn-plate { font-size: .72rem; padding: 10px 16px; }
       .hero-right { height: 100%; min-height: 280px; }
       .features-inner { grid-template-columns: 1fr 1fr; }
